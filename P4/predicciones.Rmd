@@ -1,0 +1,47 @@
+---
+title: "predicciones"
+output: html_document
+date: "Marzo 06, 2015"
+---
+
+#Tarea 3-Punto4
+####Predicción del precio del peso respecto al dolar.
+##Elkin R. Alvis Narváez - 2011126664
+###Métodos Computacionales
+###Universidad de los Andes
+###Colombia
+```{r}
+library(ggplot2)
+library(Quandl)
+library(scales)
+```
+
+
+
+##a)
+Descargo los datos de la página de Quadl usando mi cuenta.
+```{r}
+big_data <- Quandl("BNP/USDCOP",authcode="Aa_E3tTns7qfnTue6mQF")
+set_data <- subset(big_data, Date>"2000-01-01" & Date<"2015-02-23")
+str(set_data)
+
+```
+Ahora imprimo la cabeza del ejercidio como este lo implica.
+```{r}
+head(set_data, n=5)
+```
+##b)
+```{r}
+ggplot(set_data, aes(x=Date,y= set_data$'USD/COP')) + geom_line(colour="blue") + xlab('Día') + ylab("USD/COP") + ggtitle("Precio del Dolar en COP\n(Ene/01/2000 hasta Feb/23/2015)")
+```
+##c)
+```{r}
+set_data$year <- format(set_data$Date, "%Y")
+str(set_data)
+ggplot(set_data, aes(x=Date,y= set_data$'USD/COP')) + geom_boxplot(colour="blue") + xlab('Día') + ylab("USD/COP") + ggtitle("Precio del Dolar en COP\n(Ene/01/2000 hasta Feb/23/2015)") + theme(plot.title = element_text(lineheight=1))+ facet_wrap(~year, scales ="free") + theme(axis.ticks = element_blank(), axis.text.x = element_blank()) + theme(axis.title.x=element_text(size=20), axis.title.y=element_text(size=20)) + theme_bw() + theme(axis.ticks = element_blank(), axis.text.x = element_blank())
+```
+##d)
+```{r}
+ggplot(set_data, aes(x=Date,y= set_data$'USD/COP')) + geom_line(colour="blue") + xlab('Día') + ylab("USD/COP") + ggtitle("Precio del Dolar en COP\n(Ene/01/2000 hasta Feb/23/2015)") + theme(plot.title = element_text(lineheight=1))+stat_smooth(method="gam",formula = y ~s (x,bs="cs"),fullrange=TRUE)
+```
+
