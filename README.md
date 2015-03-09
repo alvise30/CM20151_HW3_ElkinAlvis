@@ -1,4 +1,4 @@
-# Metodos Computacionales - Tarea 3
+Metodos Computacionales - Tarea 3
 ========================
 Elkin R. Alvis Narváez-201112664
 --------------------------------
